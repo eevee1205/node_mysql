@@ -9,21 +9,47 @@ var conn = mysql.createConnection({
 conn.connect();
 
 /*
-connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-  if (error) throw error;
-  console.log('The solution is: ', results[0].solution);
-});
 
-connection.end();
-*/
 var sql = 'SELECT * FROM topic';
 conn.query(sql, function(err, rows, fields){
   if(err){
       console.log(err);
   }else{
-      console.log('rows' , rows);
-      console.log('fields' , fields);
+      for(var i=0; i<rows.length; i++){
+        console.log(rows[i].title);
+      }
   }
 });
 
+var sql = 'INSERT INTO topic (title,description, author) VALUES(? , ? , ?)';
+var param = ['Express' , 'Web Framework' , 'eeve1205'];
+conn.query(sql, param, function(err, rows, fields){
+  if(err){
+    console.log(err);
+  }else{
+    console.log(rows);
+  }
+});
+
+
+var sql = 'UPDATE topic SET title=? , description=? WHERE id=?';
+var param = ['Express_update' , 'Web Framework_update' , '4'];
+conn.query(sql, param, function(err, rows, fields){
+  if(err){
+    console.log(err);
+  }else{
+    console.log(rows);
+  }
+});
+*/
+
+var sql = 'DELETE FROM topic WHERE id=?';
+var param = ['4'];
+conn.query(sql, param, function(err, rows, fields){
+  if(err){
+    console.log(err);
+  }else{
+    console.log(rows);
+  }
+});
 conn.end();
